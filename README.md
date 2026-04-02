@@ -19,23 +19,9 @@ cd elastic-apm-monitor
 npm install
 ```
 
-## 환경변수 설정
+## 설정
 
-`.env.example`을 복사하여 `.env` 파일을 생성합니다.
-
-```bash
-cp .env.example .env
-```
-
-```env
-KIBANA_URL=http://your-kibana-host:5601
-KIBANA_USERNAME=your-username
-KIBANA_PASSWORD=your-password
-```
-
-## MCP 연결 설정
-
-Claude Desktop 또는 Claude Code 설정에 다음을 추가합니다.
+Claude Desktop 또는 Claude Code 설정에 다음을 추가합니다. 환경변수는 MCP 설정의 `env`에 직접 지정합니다.
 
 ```json
 {
@@ -52,3 +38,9 @@ Claude Desktop 또는 Claude Code 설정에 다음을 추가합니다.
   }
 }
 ```
+
+| 환경변수 | 설명 |
+|----------|------|
+| `KIBANA_URL` | Kibana 접속 URL |
+| `KIBANA_USERNAME` | Kibana 사용자 이름 |
+| `KIBANA_PASSWORD` | Kibana 비밀번호 |
