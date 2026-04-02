@@ -22,6 +22,10 @@
     "kibana",
     "monitoring"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kimjunyoung90/elastic-apm-mcp-server.git"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
