@@ -1,19 +1,31 @@
 {
-  "name": "elastic-apm-monitor",
+  "name": "elastic-apm-mcp-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "MCP server for monitoring Elastic APM via Kibana API",
   "type": "module",
-  "main": "src/index.ts",
-  "scripts": {
-    "start": "tsx src/index.ts",
-    "build": "tsc"
+  "main": "dist/index.js",
+  "bin": {
+    "elastic-apm-mcp-server": "dist/index.js"
   },
-  "keywords": [],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "elastic",
+    "apm",
+    "kibana",
+    "monitoring"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "dotenv": "^17.4.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {

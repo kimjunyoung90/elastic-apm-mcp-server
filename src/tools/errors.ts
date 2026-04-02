@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { KibanaClient } from "../kibana-client.ts";
+import { KibanaClient } from "../kibana-client.js";
 
 export function registerErrorTools(server: McpServer, client: KibanaClient) {
   server.tool(

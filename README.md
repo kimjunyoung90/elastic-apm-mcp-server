@@ -11,24 +11,16 @@ Kibana APM API를 통해 서비스 목록, 트랜잭션 성능, 에러를 조회
 | `get_transactions` | 특정 서비스의 트랜잭션 성능 통계 조회 |
 | `get_errors` | 특정 서비스의 에러 그룹 조회 |
 
-## 설치
-
-```bash
-git clone <repo-url>
-cd elastic-apm-monitor
-npm install
-```
-
 ## 설정
 
-Claude Desktop 또는 Claude Code 설정에 다음을 추가합니다. 환경변수는 MCP 설정의 `env`에 직접 지정합니다.
+Claude Desktop 또는 Claude Code 설정에 다음을 추가합니다. 별도 설치 없이 `npx`로 바로 실행됩니다.
 
 ```json
 {
   "mcpServers": {
     "elastic-apm": {
       "command": "npx",
-      "args": ["tsx", "/path/to/elastic-apm-monitor/src/index.ts"],
+      "args": ["-y", "elastic-apm-mcp-server"],
       "env": {
         "KIBANA_URL": "http://your-kibana-host:5601",
         "KIBANA_USERNAME": "your-username",

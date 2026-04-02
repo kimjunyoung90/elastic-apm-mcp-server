@@ -1,10 +1,10 @@
-import "dotenv/config";
+#!/usr/bin/env node
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { KibanaClient } from "./kibana-client.ts";
-import { registerServiceTools } from "./tools/services.ts";
-import { registerErrorTools } from "./tools/errors.ts";
-import { registerTransactionTools } from "./tools/transactions.ts";
+import { KibanaClient } from "./kibana-client.js";
+import { registerServiceTools } from "./tools/services.js";
+import { registerErrorTools } from "./tools/errors.js";
+import { registerTransactionTools } from "./tools/transactions.js";
 
 const kibanaUrl = process.env.KIBANA_URL;
 const username = process.env.KIBANA_USERNAME;
@@ -18,7 +18,7 @@ if (!kibanaUrl || !username || !password) {
 const client = new KibanaClient(kibanaUrl, username, password);
 
 const server = new McpServer({
-  name: "elastic-apm-monitor",
+  name: "elastic-apm-mcp-server",
   version: "1.0.0",
 });
 
