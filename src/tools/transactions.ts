@@ -15,14 +15,19 @@ export function registerTransactionTools(server: McpServer, client: KibanaClient
         .default("request")
         .describe("트랜잭션 타입 (e.g. request, messaging)"),
       environment: z.string().optional().describe("환경 필터"),
+      latencyAggregationType: z
+        .string()
+        .default("avg")
+        .describe("latency 집계 타입 (avg, p95, p99)"),
     },
-    async ({ serviceName, start, end, transactionType, environment }) => {
+    async ({ serviceName, start, end, transactionType, environment, latencyAggregationType }) => {
       const data = await client.getTransactions(
         serviceName,
         start,
         end,
         transactionType,
-        environment
+        environment,
+        latencyAggregationType
       );
       return {
         content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }],

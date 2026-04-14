@@ -92,7 +92,8 @@ export class KibanaClient {
     start: string,
     end: string,
     transactionType: string = "request",
-    environment?: string
+    environment?: string,
+    latencyAggregationType: string = "avg"
   ) {
     return this.request<any>(
       `/internal/apm/services/${encodeURIComponent(serviceName)}/transactions/groups/main_statistics`,
@@ -101,7 +102,7 @@ export class KibanaClient {
         end,
         transactionType,
         environment: environment ?? "ENVIRONMENT_ALL",
-        latencyAggregationType: "avg",
+        latencyAggregationType,
         documentType: "transactionMetric",
         rollupInterval: "60m",
         kuery: "",
