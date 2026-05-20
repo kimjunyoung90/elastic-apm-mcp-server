@@ -87,6 +87,30 @@ export class KibanaClient {
     );
   }
 
+  async getServiceMetrics(
+    serviceName: string,
+    agentName: string,
+    start: string,
+    end: string,
+    environment?: string,
+    serviceRuntimeName?: string
+  ) {
+    const params: Record<string, string> = {
+      start,
+      end,
+      agentName,
+      environment: environment ?? "ENVIRONMENT_ALL",
+      kuery: "",
+    };
+    if (serviceRuntimeName) {
+      params.serviceRuntimeName = serviceRuntimeName;
+    }
+    return this.request<any>(
+      `/internal/apm/services/${encodeURIComponent(serviceName)}/metrics/charts`,
+      params
+    );
+  }
+
   async getTransactions(
     serviceName: string,
     start: string,

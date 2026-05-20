@@ -1,11 +1,11 @@
 # elastic-apm-mcp-server
 
-Kibana APM API를 통해 서비스 목록, 트랜잭션 성능, 에러를 조회하는 MCP 서버입니다.
+Kibana API를 통해 APM 데이터(서비스 목록, 트랜잭션 성능, 에러, 런타임 메트릭)를 조회하는 MCP 서버입니다.
 
 ## 요구사항
 
 - Node.js 18 이상
-- Kibana 8.x (내부 APM API를 사용하므로 버전에 따라 동작이 달라질 수 있습니다)
+- Kibana 8.x (Kibana 내부 엔드포인트를 사용하므로 버전에 따라 동작이 달라질 수 있습니다)
 
 ## 설정
 
@@ -61,6 +61,7 @@ claude mcp add elastic-apm \
 | `get_service_overview` | 특정 서비스의 트랜잭션 성능과 에러 요약 조회 |
 | `get_transactions` | 특정 서비스의 트랜잭션 성능 통계 조회 |
 | `get_errors` | 특정 서비스의 에러 그룹 조회 |
+| `get_service_metrics` | 특정 서비스의 CPU/메모리 등 런타임 메트릭 조회 (agent 종류별 상이) |
 
 ## 사용 예시
 

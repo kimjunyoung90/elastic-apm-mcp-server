@@ -5,6 +5,7 @@ import { KibanaClient } from "./kibana-client.js";
 import { registerServiceTools } from "./tools/services.js";
 import { registerErrorTools } from "./tools/errors.js";
 import { registerTransactionTools } from "./tools/transactions.js";
+import { registerMetricTools } from "./tools/metrics.js";
 
 const kibanaUrl = process.env.KIBANA_URL;
 const username = process.env.KIBANA_USERNAME;
@@ -25,6 +26,7 @@ const server = new McpServer({
 registerServiceTools(server, client);
 registerErrorTools(server, client);
 registerTransactionTools(server, client);
+registerMetricTools(server, client);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
