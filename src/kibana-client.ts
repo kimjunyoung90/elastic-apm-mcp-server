@@ -44,26 +44,32 @@ export class KibanaClient {
     });
   }
 
-  async getServiceOverview(serviceName: string, start: string, end: string, environment?: string) {
+  async getServiceOverview(
+    serviceName: string,
+    start: string,
+    end: string,
+    environment?: string,
+    latencyAggregationType: string = "avg"
+  ) {
     const env = environment ?? "ENVIRONMENT_ALL";
     const base = `/internal/apm/services/${encodeURIComponent(serviceName)}`;
-    const common = {
+    const isAvg = latencyAggregationType === "avg";
+    const txParams: Record<string, string> = {
       start,
       end,
       environment: env,
-      probability: "1",
-      documentType: "transactionMetric",
-      rollupInterval: "60m",
+      transactionType: "request",
+      latencyAggregationType,
       kuery: "",
+      documentType: isAvg ? "transactionMetric" : "transactionEvent",
+      rollupInterval: "60m",
     };
+    if (isAvg) {
+      txParams.useDurationSummary = "true";
+    }
 
     const [transactions, errors] = await Promise.all([
-      this.request<any>(`${base}/transactions/groups/main_statistics`, {
-        ...common,
-        transactionType: "request",
-        latencyAggregationType: "avg",
-        useDurationSummary: "true",
-      }),
+      this.request<any>(`${base}/transactions/groups/main_statistics`, txParams),
       this.request<any>(`${base}/errors/groups/main_statistics`, {
         start,
         end,
@@ -119,19 +125,23 @@ export class KibanaClient {
     environment?: string,
     latencyAggregationType: string = "avg"
   ) {
+    const isAvg = latencyAggregationType === "avg";
+    const params: Record<string, string> = {
+      start,
+      end,
+      transactionType,
+      environment: environment ?? "ENVIRONMENT_ALL",
+      latencyAggregationType,
+      documentType: isAvg ? "transactionMetric" : "transactionEvent",
+      rollupInterval: "60m",
+      kuery: "",
+    };
+    if (isAvg) {
+      params.useDurationSummary = "true";
+    }
     return this.request<any>(
       `/internal/apm/services/${encodeURIComponent(serviceName)}/transactions/groups/main_statistics`,
-      {
-        start,
-        end,
-        transactionType,
-        environment: environment ?? "ENVIRONMENT_ALL",
-        latencyAggregationType,
-        documentType: "transactionMetric",
-        rollupInterval: "60m",
-        kuery: "",
-        useDurationSummary: "true",
-      }
+      params
     );
   }
 }

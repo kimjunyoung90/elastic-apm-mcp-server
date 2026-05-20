@@ -18,7 +18,9 @@ export function registerTransactionTools(server: McpServer, client: KibanaClient
       latencyAggregationType: z
         .string()
         .default("avg")
-        .describe("latency 집계 타입 (avg, p95, p99)"),
+        .describe(
+          "latency 집계 타입 (avg, p95, p99). p95/p99는 샘플링된 raw transaction 기반이라 트랜잭션 수가 적게 보일 수 있음"
+        ),
     },
     async ({ serviceName, start, end, transactionType, environment, latencyAggregationType }) => {
       const data = await client.getTransactions(
