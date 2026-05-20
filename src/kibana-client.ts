@@ -144,4 +144,42 @@ export class KibanaClient {
       params
     );
   }
+
+  async getTransactionSamples(
+    serviceName: string,
+    transactionName: string,
+    start: string,
+    end: string,
+    transactionType: string = "request",
+    environment?: string,
+    sampleRangeFrom?: string,
+    sampleRangeTo?: string
+  ) {
+    const params: Record<string, string> = {
+      start,
+      end,
+      transactionType,
+      transactionName,
+      environment: environment ?? "ENVIRONMENT_ALL",
+      kuery: "",
+    };
+    if (sampleRangeFrom) {
+      params.sampleRangeFrom = sampleRangeFrom;
+    }
+    if (sampleRangeTo) {
+      params.sampleRangeTo = sampleRangeTo;
+    }
+    return this.request<any>(
+      `/internal/apm/services/${encodeURIComponent(serviceName)}/transactions/traces/samples`,
+      params
+    );
+  }
+
+  async getTrace(traceId: string, start: string, end: string, entryTransactionId?: string) {
+    const params: Record<string, string> = { start, end };
+    if (entryTransactionId) {
+      params.entryTransactionId = entryTransactionId;
+    }
+    return this.request<any>(`/internal/apm/traces/${encodeURIComponent(traceId)}`, params);
+  }
 }

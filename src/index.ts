@@ -6,6 +6,7 @@ import { registerServiceTools } from "./tools/services.js";
 import { registerErrorTools } from "./tools/errors.js";
 import { registerTransactionTools } from "./tools/transactions.js";
 import { registerMetricTools } from "./tools/metrics.js";
+import { registerTraceTools } from "./tools/traces.js";
 
 const kibanaUrl = process.env.KIBANA_URL;
 const username = process.env.KIBANA_USERNAME;
@@ -27,6 +28,7 @@ registerServiceTools(server, client);
 registerErrorTools(server, client);
 registerTransactionTools(server, client);
 registerMetricTools(server, client);
+registerTraceTools(server, client);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

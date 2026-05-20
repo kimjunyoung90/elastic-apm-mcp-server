@@ -62,6 +62,8 @@ claude mcp add elastic-apm \
 | `get_transactions` | 특정 서비스의 트랜잭션 성능 통계 조회 |
 | `get_errors` | 특정 서비스의 에러 그룹 조회 |
 | `get_service_metrics` | 특정 서비스의 CPU/메모리 등 런타임 메트릭 조회 (agent 종류별 상이) |
+| `get_transaction_samples` | 특정 트랜잭션의 샘플 트레이스(traceId) 조회, 느린 트랜잭션 필터링 가능 |
+| `get_trace` | trace ID로 트랜잭션 전체 span(워터폴)을 조회하여 병목 구간 파악 |
 
 ## 사용 예시
 
@@ -70,6 +72,7 @@ MCP 설정 후 Claude에게 자연어로 요청하면 됩니다.
 - "APM 서비스 목록 보여줘"
 - "auth-service의 최근 1시간 에러 조회해줘"
 - "payment-service 트랜잭션 성능 확인해줘"
+- "payment-service에서 제일 느린 요청 하나 까서 어디서 시간 쓰는지 보여줘"
 
 ## License
 
